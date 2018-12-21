@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/garbo.iml" filepath="$PROJECT_DIR$/.idea/modules/garbo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/garbo_main.iml" filepath="$PROJECT_DIR$/.idea/modules/garbo_main.iml" group="garbo" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/garbo_test.iml" filepath="$PROJECT_DIR$/.idea/modules/garbo_test.iml" group="garbo" />
+    </modules>
+  </component>
+</project>
