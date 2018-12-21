@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team1540.garbo_code.commands.GrabHoldLeft;
 import org.team1540.garbo_code.commands.GrabHoldRight;
 import org.team1540.garbo_code.subsystems.Drivetrain;
@@ -30,7 +31,7 @@ public class Robot extends IterativeRobot {
     public static Drivetrain drivetrain = new Drivetrain();
     public static Elevator elevator = new Elevator();
     public static Grabber grabber = new Grabber();
-   public  DigitalInput elevatorTopSwitch = new DigitalInput(0);
+
 
     @Override
     public void robotInit() {
@@ -41,11 +42,9 @@ public class Robot extends IterativeRobot {
         Button coB = new JoystickButton(OI.copilot, OI.B);
         coB.whileHeld(new GrabHoldRight());
 
+
     }
 
-    public boolean canMoveElevatorUp(){
-        return (! elevatorTopSwitch.get());
-    }
 
     @Override
     public void disabledInit() {
@@ -72,6 +71,9 @@ public class Robot extends IterativeRobot {
         //called every 30 ish milliseconds
         Scheduler.getInstance().run();
         //^ handles all command logic, very important
+        System.out.println(elevator.canMoveElevatorUp());
+
+        SmartDashboard.putBoolean("is elevator at top?", ! elevator.canMoveElevatorUp());
 
     }
 

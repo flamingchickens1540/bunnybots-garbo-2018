@@ -1,6 +1,7 @@
 package org.team1540.garbo_code.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.DigitalInput;
 import org.checkerframework.checker.units.qual.C;
 import org.team1540.rooster.ChickenSubsystem;
 import org.team1540.rooster.wrappers.ChickenTalon;
@@ -9,6 +10,7 @@ import org.team1540.garbo_code.commands.ElevatorMove;
 public class Elevator extends ChickenSubsystem {
 
     ChickenTalon elevator1 = new ChickenTalon(20);
+    public DigitalInput elevatorTopSwitch = new DigitalInput(9);
 
     @Override
     protected void initDefaultCommand() {
@@ -26,7 +28,8 @@ public class Elevator extends ChickenSubsystem {
 
     }
 
-   // public void moveDown(double numLeft){
-   //     elevator1.set(ControlMode.PercentOutput, numLeft);
-   // }
+    public boolean canMoveElevatorUp(){
+        return (elevatorTopSwitch.get());
+    }
+
 }

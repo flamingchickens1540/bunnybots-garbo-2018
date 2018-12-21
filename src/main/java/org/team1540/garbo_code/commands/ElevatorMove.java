@@ -21,9 +21,14 @@ public class ElevatorMove extends Command{
     @Override
     protected void execute() {
 
+        if (Robot.elevator.canMoveElevatorUp()) {
 
+            Robot.elevator.setMove(OI.getCoLeftTrigger(), OI.getCoRightTrigger());
+        }
 
-        Robot.elevator.setMove(OI.getCoLeftTrigger(), OI.getCoRightTrigger());
+        else{
+            Robot.elevator.setMove(0, OI.getCoRightTrigger());
+        }
 
     }
 }
