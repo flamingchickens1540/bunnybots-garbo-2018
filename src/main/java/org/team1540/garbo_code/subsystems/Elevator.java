@@ -21,7 +21,7 @@ public class Elevator extends ChickenSubsystem {
     public Elevator(){
         elevator1.setBrake(true);
     }
-
+    //left is up, right is down
     public void setMove(double numLeft, double numRight){
 
         elevator1.set(ControlMode.PercentOutput, (numLeft - numRight));

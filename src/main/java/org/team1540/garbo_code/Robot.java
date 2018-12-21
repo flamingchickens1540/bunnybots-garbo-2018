@@ -43,6 +43,12 @@ public class Robot extends IterativeRobot {
         coB.whileHeld(new GrabHoldRight());
 
 
+
+        chooser.addDefault("Default Auto", new Autonomous());
+        chooser.addObject("My Auto", new Autonomous());
+        SmartDashboard.putData("Auto mode", chooser);
+
+
     }
 
 
@@ -53,12 +59,15 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
-
+        autonomousCommand = chooser.getSelected();
+        if (autonomousCommand != null)
+            autonomousCommand.start();
     }
 
     @Override
     public void teleopInit() {
-
+        if (autonomousCommand != null)
+            autonomousCommand.cancel();
     }
 
     @Override
@@ -79,17 +88,17 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void disabledPeriodic() {
-
+        Scheduler.getInstance().run();
     }
 
     @Override
     public void autonomousPeriodic() {
-
+        Scheduler.getInstance().run();
     }
 
     @Override
     public void teleopPeriodic() {
-
+        Scheduler.getInstance().run();
     }
 }
 
