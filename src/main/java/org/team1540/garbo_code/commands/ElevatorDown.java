@@ -25,11 +25,12 @@ public class ElevatorDown extends Command{
 
         if (Robot.elevator.canMoveElevatorDown()) {
 
-            Robot.elevator.setMove(0, 0.5);
+            Robot.elevator.setMove(0, 0.2);
         }
         else
         {
 
+            Robot.elevator.setMove(0, 0);
             finished = true;
 
         }

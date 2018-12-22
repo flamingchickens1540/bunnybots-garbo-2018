@@ -8,7 +8,7 @@ import org.team1540.garbo_code.Robot;
 //import edu.wpi.first.wpilibj.command.Subsystem;
 //import org.team1540.garbo_code.subsystems.Drivetrain;
 
-public class ArcadeDrive extends Command {
+public class Drive extends Command {
 
     Ramping r = new Ramping();
 
@@ -17,7 +17,7 @@ public class ArcadeDrive extends Command {
         return false;
     }
 
-    public ArcadeDrive(){
+    public Drive(){
 
         requires(Robot.drivetrain);
 
@@ -38,9 +38,9 @@ public class ArcadeDrive extends Command {
 
     }
 
-    private double[] getMotorLevels(double input1, double input2, double _left, double _right) {
+    private double[] getArcadeMotorLevels(double input1, double input2, double _left, double _right) {
 
-        double turnError = -0.12; // How much right the robot drives
+        double turnError = 0.00; // How much right the robot drives
         double turn = deadzone(input1, 0.15) - turnError;
         double velocity = deadzone(input2, 0.15);
         double left = deadzone(_left, 0.25);
@@ -73,15 +73,45 @@ public class ArcadeDrive extends Command {
         return levels;
     }
 
+    private double[] getTankMotorLevels(double input1, double input2, double _left, double _right) {
+
+        //input1 = deadzone(input1, 0.15) - turnError;
+        //input2 = deadzone(input2, 0.15);
+        //_left = deadzone(_left, 0.25);
+        //_right = deadzone(_right, 0.25);
+        double levels[] = new double[2];
+
+        levels[0] = (-1) * (input1 + _right - _left);
+        levels[1] = input2 + _right - _left;
+
+        //levels[0] = r.doRamping(0, levels[0], 0.05);
+        //levels[1] = r.doRamping(1, levels[1], 0.05);
+
+        return levels;
+    }
+
     @Override
     protected void execute() {
 
         double triggerLeftValue = OI.getDriverLeftTrigger();
         double triggerRightValue = OI.getDriverRightTrigger();
         double axisLeftValue = OI.getDriverLeftAxis();
+        double axisLeftValueX = OI.getDriverLeftAxisX();
         double axisRightValue = OI.getDriverRightAxis();
+        double[] motorLevels = new double[2];
 
-        double[] motorLevels = getMotorLevels(axisLeftValue, axisRightValue, triggerLeftValue, triggerRightValue);
+        if (Robot.drivetrain.driveMode == Robot.drivetrain.TANKDRIVE)
+        {
+
+            motorLevels = getTankMotorLevels(axisLeftValue, axisRightValue, triggerLeftValue, triggerRightValue);
+
+        }
+        else if (Robot.drivetrain.driveMode == Robot.drivetrain.ARCADEDRIVE)
+        {
+
+            motorLevels = getArcadeMotorLevels(axisLeftValueX, axisRightValue, triggerLeftValue, triggerRightValue);
+
+        }
 
         Robot.drivetrain.setLeft(motorLevels[0]);
         Robot.drivetrain.setRight(motorLevels[1]);

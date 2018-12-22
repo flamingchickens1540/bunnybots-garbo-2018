@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.team1540.garbo_code.Robot;
 
 
-public class Stop extends Command {
+public class SetArcadeMode extends Command {
 
-    public Stop() {
+    public SetArcadeMode() {
 
         // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
@@ -21,8 +21,7 @@ public class Stop extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.drivetrain.setLeft(0);
-        Robot.drivetrain.setRight(0);
+        Robot.drivetrain.driveMode=Robot.drivetrain.ARCADEDRIVE;
 
     }
 

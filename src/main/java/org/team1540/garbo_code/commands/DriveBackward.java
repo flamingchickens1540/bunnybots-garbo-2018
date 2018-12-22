@@ -1,20 +1,20 @@
 package org.team1540.garbo_code.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team1540.robot.Robot;
+import org.team1540.garbo_code.Robot;
 
-import java.util.Timer;
 
 public class DriveBackward extends Command{
 
-	Timer t = new Timer();
 	double time;
+	Timer t = new Timer();
 	boolean finished;
 
 	public DriveBackward(double _time) {
 
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.Drivetrain);
+		requires(Robot.drivetrain);
 		finished = false;
 		time = _time;
 
@@ -22,9 +22,9 @@ public class DriveBackward extends Command{
 	public DriveBackward() {
 
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.Drivetrain);
+		requires(Robot.drivetrain);
 		finished = false;
-		time = 0;
+		time = -1;
 
 	}
 
@@ -32,8 +32,8 @@ public class DriveBackward extends Command{
 	@Override
 	protected void initialize() {
 
-		Robot.Drivetrain.setLeft(-0.5);
-		Robot.Drivetrain.setRight(-0.5);
+		Robot.drivetrain.setLeft(-0.5);
+		Robot.drivetrain.setRight(0.5);
 		t.reset();
 		t.start();
 
@@ -42,14 +42,12 @@ public class DriveBackward extends Command{
 	@Override
 	protected void execute() {
 
-		if (time != 0 && t.get() > time)
+		if (time != -1 && time < t.get())
 		{
 
 			finished = true;
 
 		}
-
-
 
 	}
 

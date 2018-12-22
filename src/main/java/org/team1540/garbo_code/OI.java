@@ -39,6 +39,16 @@ public class OI {
         return 0;
     }
 
+    public static double getDriverLeftAxisX(){
+        double value = driver.getRawAxis(LEFT_X);
+        if (Math.abs(value) >= 0.1){
+            return value;
+        }
+        return 0;
+    }
+
+
+
     public static double getDriverRightAxis(){
         double value = driver.getRawAxis(RIGHT_Y);
         if (Math.abs(value) >= 0.1){
@@ -96,8 +106,6 @@ public class OI {
         }
         return 0;
     }
-
-
 
 }
 

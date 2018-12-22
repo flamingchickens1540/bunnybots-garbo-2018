@@ -1,16 +1,17 @@
 package org.team1540.garbo_code.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import org.team1540.garbo_code.OI;
 import org.team1540.garbo_code.Robot;
 
-public class GrabHoldRight extends Command{
+public class GrabSimulBoth extends Command{
 
     @Override
     protected boolean isFinished() {
         return false;
     }
 
-    public GrabHoldRight(){
+    public GrabSimulBoth(){
 
         requires(Robot.grabber);
 
@@ -19,7 +20,12 @@ public class GrabHoldRight extends Command{
     @Override
     protected void execute() {
 
-        Robot.grabber.setRight(0.25);
+        Robot.grabber.setLeft(0.5*(OI.getCoLeftAxis()+OI.getCoRightAxis()));
+        Robot.grabber.setRight(0.5*(OI.getCoLeftAxis()+OI.getCoRightAxis()));
+
 
     }
+
+
+
 }

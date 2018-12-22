@@ -29,8 +29,8 @@ deploy {
 }
 
 repositories {
-    maven { url 'https://jitpack.io' }
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 
@@ -41,6 +41,7 @@ dependencies {
     compile ctre()
     compile navx()
     compile pathfinder()
+//    nativeZip "jaci.pathfinder:Pathfinder-JNI:2019.1.10:athena@zip"
     compile 'org.team1540:rooster:master-SNAPSHOT'
 }
 

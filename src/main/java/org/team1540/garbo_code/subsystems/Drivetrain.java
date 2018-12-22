@@ -1,7 +1,8 @@
 package org.team1540.garbo_code.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import org.team1540.garbo_code.commands.TankDrive;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import org.team1540.garbo_code.commands.Drive;
 import org.team1540.rooster.ChickenSubsystem;
 //import edu.wpi.first.wpilibj.*;
 import org.team1540.rooster.wrappers.ChickenTalon;
@@ -14,10 +15,15 @@ public class Drivetrain extends ChickenSubsystem {
     ChickenTalon driveRight1 = new ChickenTalon(13);
     ChickenTalon driveRight2 = new ChickenTalon(14);
     ChickenTalon driveRight3 = new ChickenTalon(15);
+    public final double encoderPerInch = 650.0; // per inch
+    public final double driveTrainCircumference = 100.1; // inches
+    public final int TANKDRIVE = 1;
+    public final int ARCADEDRIVE = 2;
+    public int driveMode;
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand( new TankDrive());
+        setDefaultCommand( new Drive());
         //this function makes it so that TankDrive is a default command
     }
 
@@ -36,7 +42,10 @@ public class Drivetrain extends ChickenSubsystem {
         driveRight2.setBrake(true);
         driveRight3.setBrake(true);
 
+        driveLeft1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+        driveRight1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 
+        driveMode = TANKDRIVE;
     }
 
     public void setLeft(double num){
@@ -47,6 +56,14 @@ public class Drivetrain extends ChickenSubsystem {
         driveRight1.set(ControlMode.PercentOutput, num);
     }
 
+    // Negative encoder direction
+    public int getLeftPos() {
+        return driveLeft1.getSelectedSensorPosition(0);
+    }
+    // Positive encoder direction
+    public int getRightPos() {
+        return driveRight1.getSelectedSensorPosition(0);
+    }
 }
 
 

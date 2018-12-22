@@ -1,7 +1,7 @@
 package org.team1540.garbo_code.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import org.team1540.garbo_code.commands.GrabBoth;
+import org.team1540.garbo_code.commands.GrabSimulBoth;
 import org.team1540.rooster.ChickenSubsystem;
 import org.team1540.rooster.wrappers.ChickenTalon;
 
@@ -15,7 +15,7 @@ public class Grabber extends ChickenSubsystem {
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand( new GrabBoth());
+        setDefaultCommand( new GrabSimulBoth());
         //this function makes it so that moving the grabbers is a default command
     }
 

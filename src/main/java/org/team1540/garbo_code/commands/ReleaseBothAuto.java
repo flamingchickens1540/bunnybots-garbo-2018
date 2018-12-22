@@ -1,5 +1,6 @@
 package org.team1540.garbo_code.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import org.team1540.garbo_code.Robot;
 
@@ -31,8 +32,8 @@ public class ReleaseBothAuto extends Command{
         if (timer.get() < 2.0)
         {
 
-            Robot.grabber.setLeft(0.25);
-            Robot.grabber.setRight(0.25);
+            Robot.grabber.setLeft(-0.25);
+            Robot.grabber.setRight(-0.25);
 
         }
         else

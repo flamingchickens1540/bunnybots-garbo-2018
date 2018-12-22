@@ -1,31 +1,31 @@
 package org.team1540.garbo_code.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.team1540.garbo_code.OI;
 import org.team1540.garbo_code.Robot;
 
-public class GrabBoth extends Command{
+public class GrabHold extends Command{
+
+    boolean finished;
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return finished;
     }
 
-    public GrabBoth(){
+    public GrabHold(){
 
         requires(Robot.grabber);
+        finished = false;
 
     }
 
     @Override
     protected void execute() {
 
-        Robot.grabber.setLeft(OI.getCoLeftAxis());
-        Robot.grabber.setRight(OI.getCoRightAxis());
-
+        Robot.grabber.setLeft(0.3);
+        Robot.grabber.setRight(0.3);
+        finished = false;
 
     }
-
-
 
 }

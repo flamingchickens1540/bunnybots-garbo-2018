@@ -1,14 +1,15 @@
 package org.team1540.garbo_code;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.team1540.garbo_code.commands.GrabHoldLeft;
-import org.team1540.garbo_code.commands.GrabHoldRight;
+import org.team1540.garbo_code.commands.*;
 import org.team1540.garbo_code.subsystems.Drivetrain;
 import org.team1540.garbo_code.subsystems.Elevator;
 import org.team1540.garbo_code.subsystems.Grabber;
@@ -32,21 +33,37 @@ public class Robot extends IterativeRobot {
     public static Elevator elevator = new Elevator();
     public static Grabber grabber = new Grabber();
 
+    private Command autonomousCommand;
+    private SendableChooser<Command> chooser = new SendableChooser<>();
 
     @Override
     public void robotInit() {
 
-        Button coX = new JoystickButton(OI.copilot, OI.X);
-        coX.whileHeld(new GrabHoldLeft());
+        Button coLB = new JoystickButton(OI.copilot, OI.LB);
+        coLB.toggleWhenPressed(new GrabHold());
 
-        Button coB = new JoystickButton(OI.copilot, OI.B);
-        coB.whileHeld(new GrabHoldRight());
+        Button coRB = new JoystickButton(OI.copilot, OI.RB);
+        coRB.toggleWhenPressed(new ReleaseBothAuto());
 
+        Button coY = new JoystickButton(OI.copilot, OI.Y);
+        coY.toggleWhenPressed(new ElevatorUp());
 
+        Button coA = new JoystickButton(OI.copilot, OI.A);
+        coA.toggleWhenPressed(new ElevatorDown());
+
+        Button drA = new JoystickButton(OI.driver, OI.A);
+        drA.toggleWhenPressed(new SetArcadeMode());
+
+        Button drB = new JoystickButton(OI.driver, OI.B);
+        drB.toggleWhenPressed(new SetTankMode());
 
         chooser.addDefault("Default Auto", new Autonomous());
         chooser.addObject("My Auto", new Autonomous());
         SmartDashboard.putData("Auto mode", chooser);
+
+        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
+        camera.setResolution(128, 73);
+        camera.setFPS(30);
 
 
     }
@@ -80,10 +97,16 @@ public class Robot extends IterativeRobot {
         //called every 30 ish milliseconds
         Scheduler.getInstance().run();
         //^ handles all command logic, very important
-        System.out.println(elevator.canMoveElevatorUp());
+        //
+        //System.out.println(elevator.canMoveElevatorDown());
 
         SmartDashboard.putBoolean("is elevator at top?", ! elevator.canMoveElevatorUp());
+        SmartDashboard.putNumber("TEST TEST", 1);
+        SmartDashboard.putBoolean("is elevator at bottom?", ! elevator.canMoveElevatorDown());
+        SmartDashboard.putNumber("TEST TEST", 2);
 
+
+        //System.out.println(drivetrain.getLeftPos());
     }
 
     @Override
