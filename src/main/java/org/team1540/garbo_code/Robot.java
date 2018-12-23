@@ -34,7 +34,6 @@ public class Robot extends IterativeRobot {
     public static Grabber grabber = new Grabber();
 
     private Command autonomousCommand;
-    private SendableChooser<Command> chooser = new SendableChooser<>();
 
     @Override
     public void robotInit() {
@@ -48,18 +47,20 @@ public class Robot extends IterativeRobot {
         Button coY = new JoystickButton(OI.copilot, OI.Y);
         coY.toggleWhenPressed(new ElevatorUp());
 
+        Button coX = new JoystickButton(OI.copilot, OI.X);
+        coX.toggleWhenPressed(new GrabHold());
+
         Button coA = new JoystickButton(OI.copilot, OI.A);
         coA.toggleWhenPressed(new ElevatorDown());
+
+        Button coB = new JoystickButton(OI.copilot, OI.B);
+        coB.toggleWhenPressed(new ReleaseBothAuto());
 
         Button drA = new JoystickButton(OI.driver, OI.A);
         drA.toggleWhenPressed(new SetArcadeMode());
 
         Button drB = new JoystickButton(OI.driver, OI.B);
         drB.toggleWhenPressed(new SetTankMode());
-
-        chooser.addDefault("Default Auto", new Autonomous());
-        chooser.addObject("My Auto", new Autonomous());
-        SmartDashboard.putData("Auto mode", chooser);
 
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
         camera.setResolution(128, 73);
@@ -76,9 +77,8 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
-        autonomousCommand = chooser.getSelected();
-        if (autonomousCommand != null)
-            autonomousCommand.start();
+        autonomousCommand = new Autonomous();
+        autonomousCommand.start();
     }
 
     @Override

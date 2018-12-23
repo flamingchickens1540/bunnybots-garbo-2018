@@ -32,8 +32,8 @@ public class DriveForward extends Command{
 	@Override
 	protected void initialize() {
 		
-		Robot.drivetrain.setLeft(0.5);
-		Robot.drivetrain.setRight(-0.5);
+		Robot.drivetrain.setLeft(0.3);
+		Robot.drivetrain.setRight(-0.3);
 		t.reset();
 		t.start();
 		
@@ -45,9 +45,19 @@ public class DriveForward extends Command{
 		if (time != -1 && time < t.get())
 		{
 
+
 			finished = true;
 
 		}
+
+	}
+
+	@Override
+	public void end()
+	{
+
+		Robot.drivetrain.setLeft(0);
+		Robot.drivetrain.setRight(0);
 
 	}
 

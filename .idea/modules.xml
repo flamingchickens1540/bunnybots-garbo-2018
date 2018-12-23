@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/garbo.iml" filepath="$PROJECT_DIR$/.idea/modules/garbo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/garbo_main.iml" filepath="$PROJECT_DIR$/.idea/modules/garbo_main.iml" group="garbo" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/garbo_test.iml" filepath="$PROJECT_DIR$/.idea/modules/garbo_test.iml" group="garbo" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/garbo.main.iml" filepath="$PROJECT_DIR$/.idea/modules/garbo.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/garbo.test.iml" filepath="$PROJECT_DIR$/.idea/modules/garbo.test.iml" />
     </modules>
   </component>
 </project>
